@@ -1,89 +1,86 @@
 ---
-layout: cv
-title: Isaac Newtons's CV
+title: "Resume"
+format:
+  html:
+    toc: true
+    toc-location: right
 ---
-# Isaac Newton
-Physicist, Mathematician, Cambridge professor.
 
-<div id="webaddress">
-<a href="isaac@applesdofall.org">isaac@applesdofall.org</a>
-| <a href="http://en.wikipedia.org/wiki/Isaac_Newton">My wikipedia page</a>
-</div>
+**Axel Martinez** · Rexburg, ID · (208) 227-3581 · [mar24067@byui.edu](mailto:mar24067@byui.edu) · [LinkedIn](https://www.linkedin.com/in/soyaxelmartinez/)
 
-
-## Currently
-
-Standing on the shoulders of giants
-
-### Specialized in
-
-Laws of motion, gravitation, minting coins, disliking [Robert Hooke](http://en.wikipedia.org/wiki/Robert_Hooke)
-
-
-### Research interests
-
-Cooling, power series, optics, alchemy, planetary motions, apples.
-
+Financial Economics student with a minor in Data Science and an emphasis in Accounting, bringing strong analytical skills, advanced Excel capabilities, and experience translating data into actionable recommendations. Proven leader with consulting, sales, and cross-cultural experience. Bilingual professional seeking finance, accounting, or data analytics internships.
 
 ## Education
 
-`1654-1660`
-__The King's School, Grantham.__
+:::: {.resume-entry}
+::: {.entry-head}
+**Bachelor of Science in Financial Economics — Brigham Young University–Idaho** <span class="entry-date">Apr 2024 – Dec 2027</span>
+:::
+::: {.entry-sub}
+Rexburg, ID · GPA 3.72 · Minors (Emphasis) in Accounting and Data Science
+:::
+::::
 
-`June 1661 - now`
-__Trinity College, Cambridge__
+## Experience
 
-- Sizar
+:::: {.resume-entry}
+::: {.entry-head}
+**Student Consultant on Teaching — Team Lead** <span class="entry-date">Sep 2024 – Present</span>
+:::
+::: {.entry-sub}
+Brigham Young University–Idaho · Rexburg, ID
+:::
+- Collected, analyzed, and synthesized performance data from 100+ courses to support data-driven operational and instructional improvements
+- Reviewed and evaluated 100+ peer consultation reports, delivering structured recommendations transferable to financial analysis and business consulting
+- Achieved fastest consultation turnaround on the team for 20 consecutive months, reducing average processing time by 67%
+- Facilitated strategy discussions with 50+ faculty members, translating analytical findings into implementation plans
+- Redesigned the certification and onboarding handbook, cutting training completion time from 8 weeks to 4 weeks
+- Implemented structured task tracking for a 6-person team, increasing accountability and cutting clarification requests by 30%
+::::
 
-`1667 - death`
-__Trinity College, Cambridge__
+:::: {.resume-entry}
+::: {.entry-head}
+**Salesman — Turistik** <span class="entry-date">May 2023 – Jul 2023</span>
+:::
+::: {.entry-sub}
+Santiago, Chile
+:::
+- Sold 40+ tour packages through consultative selling and tailored recommendations
+- Contributed to a 54% increase in team sales conversion rate during peak winter season
+- Communicated fluently in English, Spanish, and Portuguese to assist 25+ international clients, fostering cross-cultural connections and customer satisfaction
+::::
 
-- Fellow
+## Volunteer Experience
 
+:::: {.resume-entry}
+::: {.entry-head}
+**Full-Time Missionary — The Church of Jesus Christ of Latter-day Saints** <span class="entry-date">Apr 2021 – Apr 2023</span>
+:::
+::: {.entry-sub}
+Viña del Mar, Chile
+:::
+- Supervised and mentored teams of up to 26 individuals, driving performance improvements and fostering collaboration across assigned divisions
+- Hosted 7 regional mentoring conferences and conducted 30+ one-on-one training sessions to boost team development, goal execution, and productivity
+- Trained and supported 2 new team members in acquiring a foreign language and adapting to a new culture, accelerating integration and performance
+::::
 
+## Certifications
 
-## Awards
+- **Bloomberg Market Concepts (BMC)** — Certificate ID: 3SphBFjNVsJF1hudCiBXRJYz
+- **MyEducator Excel** — Certificate ID: 5c1b8627-f25a-4b53-9673-51319518ba78
+- **JA Company Program (Business Management)** — Santiago, Chile, 2018
 
-`2012`
-President, *Royal Society*, London, UK
+## Skills
 
-Associate, *French Academy of Science*, Paris, France
+<span class="badge-skill">Excel (Pivot Tables, Data Viz, VBA)</span>
+<span class="badge-skill">SQL (MySQL)</span>
+<span class="badge-skill">Python</span>
+<span class="badge-skill">HTML</span>
+<span class="badge-skill">Bloomberg Terminal</span>
+<span class="badge-skill">Data analysis & reporting</span>
 
+## Languages
 
-
-## Publications
-
-<!-- A list is also available [online](http://scholar.google.co.uk/citations?user=LTOTl0YAAAAJ) -->
-
-### Journals
-
-`1669`
-Newton Sir I, De analysi per æquationes numero terminorum infinitas. 
-
-`1669`
-Lectiones opticæ.
-
-etc. etc. etc.
-
-### Patents
-
-`2012`
-Infinitesimal calculus for solutions to physics problems, [SMBC](http://www.techdirt.com/articles/20121011/09312820678/if-patents-had-been-around-time-newton.shtml) patent 001
-
-
-## Occupation
-
-`1600`
-__Royal Mint__, London
-
-- Warden
-- Minted coins
-
-`1600`
-__Lucasian professor of Mathematics__, Cambridge University
-
-
-
-<!-- ### Footer
-
-Last updated: May 2013 -->
+<span class="badge-skill">English (Bilingual)</span>
+<span class="badge-skill">Spanish (Native)</span>
+<span class="badge-skill">Portuguese (Intermediate)</span>

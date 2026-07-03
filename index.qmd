@@ -1,10 +1,38 @@
 ---
-title: "about me"
-subtitle: "my data science portfolio"
-# use quarto markdown to 
+title: "Axel Martinez"
+image: profile.jpg
+about:
+  template: trestles
+  image-shape: rounded
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/soyaxelmartinez
+    - icon: github
+      text: GitHub
+      href: https://github.com/soyaxelmartinez
+    - icon: envelope
+      text: Email
+      href: mailto:mar24067@byui.edu
 ---
 
-# Title 1 Header
-## Title 2 Header
+## About me
 
-[MarkDown Basics](https://quarto.org/docs/authoring/markdown-basics.html#links-images)
+I'm a Financial Economics student at BYU-Idaho with minors in Accounting and Data Science, focused on the intersection of capital markets and analytics. I'm bilingual (English/Spanish), Venezuelan-born, and preparing for a career in markets and corporate finance in South Florida.
+
+Outside the classroom, I lead a team of student consultants in BYU-Idaho's Faculty Development office, where I built the program's consultation metrics system from the ground up — Excel dashboards, turnaround-time analytics, and semester reporting used by program leadership.
+
+I've also worked in consultative sales in Santiago, Chile, and served a two-year mission in Viña del Mar — experiences that made me comfortable working across languages and cultures (I speak English, Spanish, and Portuguese).
+
+I like problems where finance and data meet: valuing companies with Bloomberg, cleaning and analyzing data, and building tools that make decisions faster.
+
+## Currently
+
+- Pursuing Summer 2027 markets and investment banking internships
+- Bloomberg Market Concepts (BMC) certified
+- Building projects in Excel, SQL, and Python
+
+## Education
+
+**BYU-Idaho** — B.S. Financial Economics, Minors in Accounting & Data Science
+Expected Dec 2027 · GPA 3.72

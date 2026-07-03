@@ -1,367 +1,107 @@
 [
   {
-    "objectID": "story_telling.html",
-    "href": "story_telling.html",
-    "title": "about me",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Axel Martinez",
     "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Story Telling"
-    ]
+    "text": "I’m a Financial Economics student at BYU-Idaho with minors in Accounting and Data Science, focused on the intersection of capital markets and analytics. I’m bilingual (English/Spanish), Venezuelan-born, and preparing for a career in markets and corporate finance in South Florida.\nOutside the classroom, I lead a team of student consultants in BYU-Idaho’s Faculty Development office, where I built the program’s consultation metrics system from the ground up — Excel dashboards, turnaround-time analytics, and semester reporting used by program leadership.\nI’ve also worked in consultative sales in Santiago, Chile, and served a two-year mission in Viña del Mar — experiences that made me comfortable working across languages and cultures (I speak English, Spanish, and Portuguese).\nI like problems where finance and data meet: valuing companies with Bloomberg, cleaning and analyzing data, and building tools that make decisions faster."
   },
   {
-    "objectID": "story_telling.html#title-2-header",
-    "href": "story_telling.html#title-2-header",
-    "title": "about me",
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Axel Martinez",
     "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Story Telling"
-    ]
+    "text": "I’m a Financial Economics student at BYU-Idaho with minors in Accounting and Data Science, focused on the intersection of capital markets and analytics. I’m bilingual (English/Spanish), Venezuelan-born, and preparing for a career in markets and corporate finance in South Florida.\nOutside the classroom, I lead a team of student consultants in BYU-Idaho’s Faculty Development office, where I built the program’s consultation metrics system from the ground up — Excel dashboards, turnaround-time analytics, and semester reporting used by program leadership.\nI’ve also worked in consultative sales in Santiago, Chile, and served a two-year mission in Viña del Mar — experiences that made me comfortable working across languages and cultures (I speak English, Spanish, and Portuguese).\nI like problems where finance and data meet: valuing companies with Bloomberg, cleaning and analyzing data, and building tools that make decisions faster."
   },
   {
-    "objectID": "Story_Telling/project2.html",
-    "href": "Story_Telling/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 2"
-    ]
+    "objectID": "index.html#currently",
+    "href": "index.html#currently",
+    "title": "Axel Martinez",
+    "section": "Currently",
+    "text": "Currently\n\nPursuing Summer 2027 markets and investment banking internships\nBloomberg Market Concepts (BMC) certified\nBuilding projects in Excel, SQL, and Python"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Axel Martinez",
+    "section": "Education",
+    "text": "Education\nBYU-Idaho — B.S. Financial Economics, Minors in Accounting & Data Science Expected Dec 2027 · GPA 3.72"
   },
   {
     "objectID": "resume.html",
     "href": "resume.html",
-    "title": "Isaac Newtons’s CV",
+    "title": "Resume",
     "section": "",
-    "text": "Physicist, Mathematician, Cambridge professor.\n\nisaac@applesdofall.org | My wikipedia page\n\n\n\nStanding on the shoulders of giants\n\n\nLaws of motion, gravitation, minting coins, disliking Robert Hooke\n\n\n\nCooling, power series, optics, alchemy, planetary motions, apples.\n\n\n\n\n1654-1660 The King’s School, Grantham.\nJune 1661 - now Trinity College, Cambridge\n\nSizar\n\n1667 - death Trinity College, Cambridge\n\nFellow\n\n\n\n\n2012 President, Royal Society, London, UK\nAssociate, French Academy of Science, Paris, France\n\n\n\n\n\n\n1669 Newton Sir I, De analysi per æquationes numero terminorum infinitas.\n1669 Lectiones opticæ.\netc. etc. etc.\n\n\n\n2012 Infinitesimal calculus for solutions to physics problems, SMBC patent 001\n\n\n\n\n1600 Royal Mint, London\n\nWarden\nMinted coins\n\n1600 Lucasian professor of Mathematics, Cambridge University"
-  },
-  {
-    "objectID": "resume.html#currently",
-    "href": "resume.html#currently",
-    "title": "Isaac Newtons’s CV",
-    "section": "",
-    "text": "Standing on the shoulders of giants\n\n\nLaws of motion, gravitation, minting coins, disliking Robert Hooke\n\n\n\nCooling, power series, optics, alchemy, planetary motions, apples."
+    "text": "Axel Martinez · Rexburg, ID · (208) 227-3581 · mar24067@byui.edu · LinkedIn\nFinancial Economics student with a minor in Data Science and an emphasis in Accounting, bringing strong analytical skills, advanced Excel capabilities, and experience translating data into actionable recommendations. Proven leader with consulting, sales, and cross-cultural experience. Bilingual professional seeking finance, accounting, or data analytics internships."
   },
   {
     "objectID": "resume.html#education",
     "href": "resume.html#education",
-    "title": "Isaac Newtons’s CV",
-    "section": "",
-    "text": "1654-1660 The King’s School, Grantham.\nJune 1661 - now Trinity College, Cambridge\n\nSizar\n\n1667 - death Trinity College, Cambridge\n\nFellow"
+    "title": "Resume",
+    "section": "Education",
+    "text": "Education\n\n\nBachelor of Science in Financial Economics — Brigham Young University–Idaho Apr 2024 – Dec 2027\n\n\nRexburg, ID · GPA 3.72 · Minors (Emphasis) in Accounting and Data Science"
   },
   {
-    "objectID": "resume.html#awards",
-    "href": "resume.html#awards",
-    "title": "Isaac Newtons’s CV",
-    "section": "",
-    "text": "2012 President, Royal Society, London, UK\nAssociate, French Academy of Science, Paris, France"
+    "objectID": "resume.html#experience",
+    "href": "resume.html#experience",
+    "title": "Resume",
+    "section": "Experience",
+    "text": "Experience\n\n\nStudent Consultant on Teaching — Team Lead Sep 2024 – Present\n\n\nBrigham Young University–Idaho · Rexburg, ID\n\n\nCollected, analyzed, and synthesized performance data from 100+ courses to support data-driven operational and instructional improvements\nReviewed and evaluated 100+ peer consultation reports, delivering structured recommendations transferable to financial analysis and business consulting\nAchieved fastest consultation turnaround on the team for 20 consecutive months, reducing average processing time by 67%\nFacilitated strategy discussions with 50+ faculty members, translating analytical findings into implementation plans\nRedesigned the certification and onboarding handbook, cutting training completion time from 8 weeks to 4 weeks\nImplemented structured task tracking for a 6-person team, increasing accountability and cutting clarification requests by 30%\n\n\n\n\nSalesman — Turistik May 2023 – Jul 2023\n\n\nSantiago, Chile\n\n\nSold 40+ tour packages through consultative selling and tailored recommendations\nContributed to a 54% increase in team sales conversion rate during peak winter season\nCommunicated fluently in English, Spanish, and Portuguese to assist 25+ international clients, fostering cross-cultural connections and customer satisfaction"
   },
   {
-    "objectID": "resume.html#publications",
-    "href": "resume.html#publications",
-    "title": "Isaac Newtons’s CV",
-    "section": "",
-    "text": "1669 Newton Sir I, De analysi per æquationes numero terminorum infinitas.\n1669 Lectiones opticæ.\netc. etc. etc.\n\n\n\n2012 Infinitesimal calculus for solutions to physics problems, SMBC patent 001"
+    "objectID": "resume.html#volunteer-experience",
+    "href": "resume.html#volunteer-experience",
+    "title": "Resume",
+    "section": "Volunteer Experience",
+    "text": "Volunteer Experience\n\n\nFull-Time Missionary — The Church of Jesus Christ of Latter-day Saints Apr 2021 – Apr 2023\n\n\nViña del Mar, Chile\n\n\nSupervised and mentored teams of up to 26 individuals, driving performance improvements and fostering collaboration across assigned divisions\nHosted 7 regional mentoring conferences and conducted 30+ one-on-one training sessions to boost team development, goal execution, and productivity\nTrained and supported 2 new team members in acquiring a foreign language and adapting to a new culture, accelerating integration and performance"
   },
   {
-    "objectID": "resume.html#occupation",
-    "href": "resume.html#occupation",
-    "title": "Isaac Newtons’s CV",
-    "section": "",
-    "text": "1600 Royal Mint, London\n\nWarden\nMinted coins\n\n1600 Lucasian professor of Mathematics, Cambridge University"
+    "objectID": "resume.html#certifications",
+    "href": "resume.html#certifications",
+    "title": "Resume",
+    "section": "Certifications",
+    "text": "Certifications\n\nBloomberg Market Concepts (BMC) — Certificate ID: 3SphBFjNVsJF1hudCiBXRJYz\nMyEducator Excel — Certificate ID: 5c1b8627-f25a-4b53-9673-51319518ba78\nJA Company Program (Business Management) — Santiago, Chile, 2018"
   },
   {
-    "objectID": "Machine_Learning/project3.html",
-    "href": "Machine_Learning/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 3"
-    ]
+    "objectID": "resume.html#skills",
+    "href": "resume.html#skills",
+    "title": "Resume",
+    "section": "Skills",
+    "text": "Skills\nExcel (Pivot Tables, Data Viz, VBA) SQL (MySQL) Python HTML Bloomberg Terminal Data analysis & reporting"
   },
   {
-    "objectID": "Machine_Learning/project1.html",
-    "href": "Machine_Learning/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 1"
-    ]
+    "objectID": "resume.html#languages",
+    "href": "resume.html#languages",
+    "title": "Resume",
+    "section": "Languages",
+    "text": "Languages\nEnglish (Bilingual) Spanish (Native) Portuguese (Intermediate)"
   },
   {
-    "objectID": "full_stack.html",
-    "href": "full_stack.html",
-    "title": "about me",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Full Stack"
-    ]
+    "text": "A selection of personal work at the intersection of finance, data, and building useful things. (Course assignments are intentionally excluded.)"
   },
   {
-    "objectID": "full_stack.html#title-2-header",
-    "href": "full_stack.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Full Stack"
-    ]
+    "objectID": "projects.html#venezuela-human-development-map",
+    "href": "projects.html#venezuela-human-development-map",
+    "title": "Projects",
+    "section": "Venezuela Human Development Map",
+    "text": "Venezuela Human Development Map\nAn interactive choropleth of HDI across Venezuela’s federal entities, built in R with Leaflet using public census and development data. Motivated by wanting a clearer picture of regional inequality in my home country.\nTools: R, Leaflet, tidyverse, Quarto View project → (link your repo or rendered page here)"
   },
   {
-    "objectID": "Full_Stack/project1.html",
-    "href": "Full_Stack/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 1"
-    ]
+    "objectID": "projects.html#para-mi-amor-spanish-learning-app",
+    "href": "projects.html#para-mi-amor-spanish-learning-app",
+    "title": "Projects",
+    "section": "Para Mi Amor — Spanish Learning App",
+    "text": "Para Mi Amor — Spanish Learning App\nA Duolingo-style interactive web app I designed and built from scratch as a gift — custom lessons, progress tracking, and gamified review. A fun exercise in product thinking, UX, and front-end logic.\nTools: HTML/CSS/JavaScript, React View project →"
   },
   {
-    "objectID": "competition.html",
-    "href": "competition.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competitions",
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "competition.html#title-2-header",
-    "href": "competition.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competitions",
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "Competition/project2.html",
-    "href": "Competition/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competitions",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project3.html",
-    "href": "Cleansing_Projects/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project1.html",
-    "href": "Cleansing_Projects/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Exploration/project2.html",
-    "href": "Cleansing_Exploration/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Exploration",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "cleansing.html",
-    "href": "cleansing.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Cleansing"
-    ]
-  },
-  {
-    "objectID": "cleansing.html#title-2-header",
-    "href": "cleansing.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Cleansing"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Exploration/project1.html",
-    "href": "Cleansing_Exploration/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Exploration",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Exploration/project3.html",
-    "href": "Cleansing_Exploration/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Exploration",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project2.html",
-    "href": "Cleansing_Projects/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Competition/project1.html",
-    "href": "Competition/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competitions",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Competition/project3.html",
-    "href": "Competition/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competitions",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "exploration.html",
-    "href": "exploration.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Exploration"
-    ]
-  },
-  {
-    "objectID": "exploration.html#title-2-header",
-    "href": "exploration.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Exploration"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project2.html",
-    "href": "Full_Stack/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics"
-  },
-  {
-    "objectID": "index.html#title-2-header",
-    "href": "index.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics"
-  },
-  {
-    "objectID": "Machine_Learning/project2.html",
-    "href": "Machine_Learning/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "ml.html",
-    "href": "ml.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Machine Learning"
-    ]
-  },
-  {
-    "objectID": "ml.html#title-2-header",
-    "href": "ml.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Machine Learning"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project1.html",
-    "href": "Story_Telling/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project3.html",
-    "href": "Story_Telling/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 3"
-    ]
+    "objectID": "projects.html#bloomberg-sector-analysis-u.s.-utilities",
+    "href": "projects.html#bloomberg-sector-analysis-u.s.-utilities",
+    "title": "Projects",
+    "section": "Bloomberg Sector Analysis: U.S. Utilities",
+    "text": "Bloomberg Sector Analysis: U.S. Utilities\nIndependent deep-dive on NextEra Energy and the utilities sector using Bloomberg Terminal — comparable-company analysis, beta and analyst-recommendation screens, relative valuation (EQRV), and market-concentration (HHI) work.\nTools: Bloomberg Terminal, Excel Read the write-up →\n\nMore coming: I’m currently building out additional markets and data projects. Check back soon or find me on GitHub."
   }
 ]

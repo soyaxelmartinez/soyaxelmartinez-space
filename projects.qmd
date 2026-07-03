@@ -1,0 +1,30 @@
+---
+title: "Projects"
+---
+
+A selection of personal work at the intersection of finance, data, and building useful things. (Course assignments are intentionally excluded.)
+
+## Venezuela Human Development Map
+
+An interactive choropleth of HDI across Venezuela's federal entities, built in R with Leaflet using public census and development data. Motivated by wanting a clearer picture of regional inequality in my home country.
+
+**Tools:** R, Leaflet, tidyverse, Quarto
+[View project →](#) *(link your repo or rendered page here)*
+
+## Para Mi Amor — Spanish Learning App
+
+A Duolingo-style interactive web app I designed and built from scratch as a gift — custom lessons, progress tracking, and gamified review. A fun exercise in product thinking, UX, and front-end logic.
+
+**Tools:** HTML/CSS/JavaScript, React
+[View project →](#)
+
+## Bloomberg Sector Analysis: U.S. Utilities
+
+Independent deep-dive on NextEra Energy and the utilities sector using Bloomberg Terminal — comparable-company analysis, beta and analyst-recommendation screens, relative valuation (EQRV), and market-concentration (HHI) work.
+
+**Tools:** Bloomberg Terminal, Excel
+[Read the write-up →](#)
+
+---
+
+*More coming: I'm currently building out additional markets and data projects. Check back soon or find me on [GitHub](https://github.com/soyaxelmartinez).*
