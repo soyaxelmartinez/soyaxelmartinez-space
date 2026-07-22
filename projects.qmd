@@ -4,6 +4,13 @@ title: "Projects"
 
 A selection of personal work at the intersection of finance, data, and building useful things. (Course assignments are intentionally excluded.)
 
+## Buying High: 143 Years of S&P 500 Valuation
+
+Does the price you pay today tell you anything about the return you get later? An analysis of Shiller CAPE history against subsequent ten-year real total returns, plus a sector-level valuation cross-section of today's index.
+
+**Tools:** R, tidyverse, ggplot2, Quarto
+[Read the analysis →](sp500-valuation.qmd)
+
 ## Venezuela Human Development Map
 
 An interactive choropleth of HDI across Venezuela's federal entities, built in R with Leaflet using public census and development data. Motivated by wanting a clearer picture of regional inequality in my home country.

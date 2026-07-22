@@ -1,0 +1,487 @@
+---
+title: "Buying High: What 143 Years of S&P 500 Valuation Says About Forward Returns"
+author: "Axel Martinez"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+    fig-width: 9
+    fig-height: 5.5
+    fig-align: center
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+## The Question
+
+Every investor eventually asks the same thing: does the price you pay today have anything to do with the return you get later?
+
+The question matters because it is actionable. If starting valuation carries no information about future returns, then the only sensible strategy is to buy and ignore the price tag. If starting valuation does carry information, then the level of the market becomes a planning input; it changes savings rates, retirement withdrawal assumptions, and how much equity risk a portfolio should carry.
+
+This project answers two connected questions:
+
+1. **Across history:** Has the S&P 500's cyclically adjusted price to earnings ratio (CAPE) predicted the real total return an investor earned over the following ten years?
+2. **Across the market today:** Where does that valuation currently sit, and which sectors are carrying the highest multiples inside the index?
+
+The first question is a time series problem. The second is a cross sectional problem. Together they move from "what does history say" to "what does that imply about the market as it is priced right now."
+
+## The Data
+
+Three remote datasets, all loaded directly from URLs so the analysis reproduces on any machine with an internet connection.
+
+| Dataset | Source | What it provides |
+|---|---|---|
+| S&P 500 monthly history | `datasets/s-and-p-500` | Monthly index level, dividends, earnings, CPI, and CAPE from 1871 forward, built on Robert Shiller's data |
+| S&P 500 constituents | `datasets/s-and-p-500-companies` | Current index membership with official GICS sector classification |
+| S&P 500 constituent financials | `datasets/s-and-p-500-companies-financials` | Point in time valuation multiples for each member company |
+
+The second and third files must be joined. The financials file carries a column labeled `Sector`, but it actually stores the GICS **sub industry** (values such as "Industrial Conglomerates"). The real sector label lives only in the constituents file, so a join on ticker symbol is required before any sector level aggregation is meaningful. That is a good reminder that a column name is a claim, not a guarantee.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(scales)
+library(knitr)
+
+theme_project <- function() {
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold", size = 15, margin = margin(b = 4)),
+      plot.subtitle = element_text(color = "grey35", size = 11, margin = margin(b = 12)),
+      plot.caption = element_text(color = "grey50", size = 8.5, hjust = 0),
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
+      panel.grid.minor = element_blank(),
+      panel.grid.major.x = element_blank(),
+      axis.title = element_text(color = "grey30", size = 10),
+      axis.text = element_text(color = "grey30"),
+      legend.position = "top",
+      legend.title = element_text(size = 9),
+      strip.text = element_text(face = "bold", color = "grey20")
+    )
+}
+```
+
+## Import
+
+```{r}
+#| label: import
+sp500_url <- "https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv"
+constituents_url <- "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv"
+financials_url <- "https://raw.githubusercontent.com/datasets/s-and-p-500-companies-financials/main/data/constituents-financials.csv"
+
+sp500_raw <- read_csv(sp500_url)
+constituents_raw <- read_csv(constituents_url)
+financials_raw <- read_csv(financials_url)
+
+glimpse(sp500_raw)
+```
+
+## Wrangle
+
+### Basic wrangle
+
+The raw monthly file pads recent rows with zeros rather than `NA` wherever the inflation adjusted series has not been updated. Treating those zeros as real values would drag every average toward zero, so they are filtered out first. The usable CAPE history therefore runs from January 1881 through the last month with published real data.
+
+```{r}
+#| label: basic-wrangle
+sp500 <- sp500_raw |>
+  rename(
+    date = Date,
+    index_level = SP500,
+    dividend = Dividend,
+    earnings = Earnings,
+    cpi = `Consumer Price Index`,
+    long_rate = `Long Interest Rate`,
+    real_price = `Real Price`,
+    real_dividend = `Real Dividend`,
+    real_earnings = `Real Earnings`,
+    cape = PE10
+  ) |>
+  mutate(date = as.Date(date)) |>
+  filter(cape > 0, real_price > 0) |>
+  arrange(date) |>
+  select(date, index_level, real_price, real_dividend, real_earnings, cape, long_rate)
+
+sp500 |>
+  summarise(
+    first_month = min(date),
+    last_month = max(date),
+    months = n(),
+    median_cape = median(cape),
+    min_cape = min(cape),
+    max_cape = max(cape)
+  ) |>
+  kable(caption = "Coverage of the usable CAPE history", digits = 2)
+```
+
+Next comes the return calculation, which is the analytical core of the project. A price only series understates what an investor actually earned, because it ignores dividends. The monthly real total return reinvests one twelfth of the trailing annual real dividend, and chaining those monthly growth factors produces a cumulative real wealth index. The forward ten year annualized real return at any month is then the ratio of the wealth index 120 months later to the wealth index today, annualized.
+
+```{r}
+#| label: forward-returns
+sp500 <- sp500 |>
+  mutate(
+    monthly_growth = (real_price + real_dividend / 12) / lag(real_price),
+    monthly_growth = replace_na(monthly_growth, 1),
+    wealth_index = cumprod(monthly_growth),
+    fwd_10yr_real = (lead(wealth_index, 120) / wealth_index)^(1 / 10) - 1,
+    decade = paste0(10 * (year(date) %/% 10), "s"),
+    cape_quintile = ntile(cape, 5)
+  )
+
+analysis <- sp500 |>
+  filter(!is.na(fwd_10yr_real))
+
+cape_now <- last(sp500$cape)
+date_now <- last(sp500$date)
+cape_median <- median(sp500$cape)
+q80 <- quantile(analysis$cape, 0.80)
+```
+
+### Grouped wrangle
+
+Sorting every month in history into valuation quintiles turns a scatter of points into a decision table. Each quintile answers a plain question: if you had bought when the market was priced like this, what did the next decade actually deliver?
+
+```{r}
+#| label: grouped-wrangle
+quintile_summary <- analysis |>
+  mutate(cape_quintile = ntile(cape, 5)) |>
+  group_by(cape_quintile) |>
+  summarise(
+    months = n(),
+    cape_low = min(cape),
+    cape_high = max(cape),
+    median_return = median(fwd_10yr_real),
+    p10 = quantile(fwd_10yr_real, 0.10),
+    p90 = quantile(fwd_10yr_real, 0.90),
+    share_negative = mean(fwd_10yr_real < 0),
+    .groups = "drop"
+  ) |>
+  mutate(
+    quintile_label = paste0(
+      "Q", cape_quintile, "\n(CAPE ", round(cape_low, 1), " to ", round(cape_high, 1), ")"
+    )
+  )
+
+quintile_summary |>
+  select(cape_quintile, months, cape_low, cape_high, median_return, p10, p90, share_negative) |>
+  kable(
+    caption = "Forward ten year real annualized return by starting CAPE quintile",
+    col.names = c("Quintile", "Months", "CAPE low", "CAPE high", "Median", "10th pct", "90th pct", "Share negative"),
+    digits = c(0, 0, 2, 2, 3, 3, 3, 3)
+  )
+
+analysis |>
+  count(decade, name = "months_observed") |>
+  slice_head(n = 5) |>
+  kable(caption = "Observation count by decade, first five decades")
+```
+
+### Combine and reformat
+
+Here the two cross sectional files are joined on ticker symbol to attach a true GICS sector to each company's valuation multiples. Not every symbol matches, because the two files are maintained on different update cycles; counting the unmatched rows is part of being honest about the data.
+
+```{r}
+#| label: join
+financials <- financials_raw |>
+  rename(
+    symbol = Symbol,
+    company = Name,
+    price = Price,
+    pe = `Price/Earnings`,
+    dividend_yield = `Dividend Yield`,
+    eps = `Earnings/Share`,
+    market_cap = `Market Cap`,
+    ps = `Price/Sales`,
+    pb = `Price/Book`
+  ) |>
+  select(symbol, company, price, pe, pb, ps, dividend_yield, eps, market_cap)
+
+constituents <- constituents_raw |>
+  rename(
+    symbol = Symbol,
+    security = Security,
+    sector = `GICS Sector`,
+    sub_industry = `GICS Sub-Industry`,
+    date_added = `Date added`
+  ) |>
+  select(symbol, security, sector, sub_industry, date_added)
+
+sp_companies <- financials |>
+  inner_join(constituents, by = "symbol")
+
+unmatched <- nrow(financials) - nrow(sp_companies)
+
+sp_clean <- sp_companies |>
+  filter(!is.na(pe), pe > 0, pe < 100, !is.na(pb), pb > 0, !is.na(ps))
+
+tibble(
+  stage = c("Financials file rows", "Matched to a GICS sector", "Unmatched symbols", "Usable after multiple screens"),
+  n = c(nrow(financials), nrow(sp_companies), unmatched, nrow(sp_clean))
+) |>
+  kable(caption = "Effect of the join and the outlier screens on sample size")
+```
+
+Sector level medians across three different multiples are then reshaped from wide to long so a single faceted chart can compare them. Medians are used instead of means because valuation multiples are heavily right skewed and a handful of companies would otherwise dominate.
+
+```{r}
+#| label: pivot
+sector_multiples <- sp_clean |>
+  group_by(sector) |>
+  summarise(
+    companies = n(),
+    `Price / Earnings` = median(pe),
+    `Price / Book` = median(pb),
+    `Price / Sales` = median(ps),
+    .groups = "drop"
+  ) |>
+  filter(companies >= 10) |>
+  arrange(desc(`Price / Earnings`))
+
+sector_long <- sector_multiples |>
+  pivot_longer(
+    cols = c(`Price / Earnings`, `Price / Book`, `Price / Sales`),
+    names_to = "multiple",
+    values_to = "value"
+  ) |>
+  mutate(
+    sector = fct_reorder(sector, value * (multiple == "Price / Earnings"), .fun = sum),
+    multiple = factor(multiple, levels = c("Price / Earnings", "Price / Book", "Price / Sales"))
+  )
+
+sector_multiples |> kable(caption = "Median valuation multiples by GICS sector", digits = 2)
+```
+
+A final reshape stacks the cheapest and most expensive large companies into one comparison table.
+
+```{r}
+#| label: extremes
+large_caps <- sp_clean |>
+  filter(!is.na(market_cap)) |>
+  slice_max(market_cap, n = 150)
+
+cheapest <- large_caps |>
+  slice_min(pe, n = 5) |>
+  mutate(group = "Lowest P/E")
+
+priciest <- large_caps |>
+  slice_max(pe, n = 5) |>
+  mutate(group = "Highest P/E")
+
+bind_rows(cheapest, priciest) |>
+  mutate(market_cap_bn = market_cap / 1e9) |>
+  select(group, symbol, company, sector, pe, pb, market_cap_bn) |>
+  kable(
+    caption = "Valuation extremes among the 150 largest index members",
+    col.names = c("Group", "Ticker", "Company", "Sector", "P/E", "P/B", "Market cap ($B)"),
+    digits = 1
+  )
+```
+
+## Visualize
+
+### Chart 1: valuation is mean reverting, but slowly
+
+```{r}
+#| label: chart-cape-history
+#| fig-height: 5.5
+peaks <- tibble(
+  date = as.Date(c("1929-09-01", "1999-12-01", "2021-11-01")),
+  label = c("1929", "1999", "2021")
+) |>
+  left_join(select(sp500, date, cape), by = "date")
+
+ggplot(sp500, aes(x = date, y = cape)) +
+  annotate(
+    "rect",
+    xmin = min(sp500$date), xmax = max(sp500$date),
+    ymin = q80, ymax = Inf,
+    fill = "firebrick", alpha = 0.07
+  ) +
+  geom_line(color = "grey20", linewidth = 0.5) +
+  geom_hline(yintercept = cape_median, color = "steelblue", linetype = "dashed", linewidth = 0.6) +
+  geom_point(data = peaks, aes(x = date, y = cape), color = "firebrick", size = 2.2) +
+  geom_text(
+    data = peaks, aes(x = date, y = cape + 2.5, label = label),
+    color = "firebrick", size = 3.4, fontface = "bold"
+  ) +
+  annotate(
+    "text",
+    x = as.Date("1893-01-01"), y = cape_median + 1.8,
+    label = paste0("Long run median: ", round(cape_median, 1)),
+    color = "steelblue", size = 3.4, hjust = 0
+  ) +
+  annotate(
+    "text",
+    x = as.Date("1893-01-01"), y = q80 + 2,
+    label = "Most expensive 20% of months",
+    color = "firebrick", size = 3.4, hjust = 0
+  ) +
+  scale_x_date(date_breaks = "20 years", date_labels = "%Y", expand = expansion(mult = c(0.01, 0.02))) +
+  scale_y_continuous(breaks = seq(0, 45, 5)) +
+  labs(
+    title = "The S&P 500 has spent most of its history far below today's valuation",
+    subtitle = paste0(
+      "Cyclically adjusted P/E, monthly, ", format(min(sp500$date), "%Y"), " to ",
+      format(date_now, "%B %Y"), ". Latest reading: ", round(cape_now, 1)
+    ),
+    x = NULL,
+    y = "CAPE (10 year real earnings)",
+    caption = "Source: Robert Shiller data via the datasets/s-and-p-500 repository."
+  ) +
+  theme_project() +
+  theme(panel.grid.major.x = element_line(color = "grey92"))
+```
+
+CAPE swings on a generational cycle. It bottomed near 4.8 in December 1920, peaked at 32.6 just before the 1929 crash, reached its all time high of 44.2 in December 1999, and touched 38.6 in late 2021. The dashed line marks the long run median of `r round(cape_median, 1)`. The shaded band marks the most expensive fifth of all months in the series. Only about six percent of months in 143 years have printed a CAPE above 30; the market's latest reading of `r round(cape_now, 1)` sits inside that thin slice of history.
+
+The chart also carries a warning against naive comparison. Accounting standards, the tax treatment of buybacks, and the sector composition of the index have all changed, so a CAPE of 25 in 2020 is not mechanically identical to a CAPE of 25 in 1950. The level is informative, not a law.
+
+### Chart 2: the price you pay explains a real share of what you earn
+
+```{r}
+#| label: chart-scatter
+#| fig-height: 5.5
+fit <- lm(fwd_10yr_real ~ log(cape), data = analysis)
+r2 <- summary(fit)$r.squared
+
+ggplot(analysis, aes(x = cape, y = fwd_10yr_real)) +
+  geom_hline(yintercept = 0, color = "grey45", linewidth = 0.4) +
+  geom_point(aes(color = year(date)), alpha = 0.45, size = 1.3) +
+  geom_smooth(method = "lm", formula = y ~ log(x), color = "firebrick", fill = "firebrick", alpha = 0.15, linewidth = 0.9) +
+  scale_color_viridis_c(option = "mako", direction = -1, name = "Year of purchase") +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  scale_x_continuous(breaks = seq(5, 45, 5)) +
+  labs(
+    title = "Higher starting valuations have meant lower ten year returns",
+    subtitle = paste0(
+      "Each point is one month between ", format(min(analysis$date), "%Y"), " and ",
+      format(max(analysis$date), "%Y"),
+      ". Log fit explains about ", round(100 * r2), " percent of the variation."
+    ),
+    x = "CAPE at time of purchase",
+    y = "Subsequent 10 year real total return, annualized",
+    caption = "Real total return assumes monthly reinvestment of dividends and is adjusted for inflation."
+  ) +
+  theme_project() +
+  theme(
+    panel.grid.major.x = element_line(color = "grey92"),
+    legend.key.width = unit(2.2, "cm")
+  )
+```
+
+The relationship is negative, visible, and economically large, but it is far from deterministic. A log fit on starting CAPE explains roughly `r round(100 * r2)` percent of the variation in the following decade's real return, which leaves the substantial majority unexplained. Valuation is a tilt, not a timing signal.
+
+The color scale is doing real work here. The darkest points, meaning the most recent purchase dates, cluster on the expensive right side of the chart, while the light points from the early twentieth century occupy the cheap left side. This is the visual form of a familiar complaint: modern investors have simply never been offered the entry prices their grandparents were.
+
+### Chart 3: the distribution matters more than the average
+
+```{r}
+#| label: chart-quintiles
+ggplot(quintile_summary, aes(x = factor(cape_quintile), y = median_return)) +
+  geom_col(aes(fill = median_return), width = 0.62) +
+  geom_errorbar(aes(ymin = p10, ymax = p90), width = 0.14, color = "grey25", linewidth = 0.5) +
+  geom_text(
+    aes(y = p90 + 0.012, label = percent(median_return, accuracy = 0.1)),
+    size = 3.6, fontface = "bold", color = "grey20"
+  ) +
+  geom_hline(yintercept = 0, color = "grey40", linewidth = 0.4) +
+  scale_fill_gradient(low = "firebrick", high = "seagreen", guide = "none") +
+  scale_x_discrete(labels = quintile_summary$quintile_label) +
+  scale_y_continuous(labels = percent_format(accuracy = 1), breaks = seq(-0.05, 0.20, 0.05)) +
+  labs(
+    title = "Buying cheap never produced a losing decade; buying expensive often did",
+    subtitle = "Median forward ten year real return by starting valuation quintile, with the 10th to 90th percentile range",
+    x = "Starting CAPE quintile",
+    y = "10 year real return, annualized",
+    caption = "Windows overlap monthly, so quintiles describe historical experience rather than independent trials."
+  ) +
+  theme_project() +
+  theme(axis.text.x = element_text(size = 8.5, lineheight = 1.1))
+```
+
+This is the most decision relevant chart in the project. The median forward return falls monotonically across quintiles, from `r percent(quintile_summary$median_return[1], accuracy = 0.1)` in the cheapest fifth to `r percent(quintile_summary$median_return[5], accuracy = 0.1)` in the most expensive fifth. That gap of roughly six percentage points per year, compounded across a decade, is the difference between doubling real purchasing power and barely moving.
+
+The error bars carry the more important message. In the cheapest quintile, `r percent(quintile_summary$share_negative[1], accuracy = 1)` of ten year windows ended with a negative real return. In the most expensive quintile, `r percent(quintile_summary$share_negative[5], accuracy = 1)` of them did. High valuations do not guarantee a poor decade; they widen the left tail of outcomes and thin out the good ones.
+
+### Chart 4: where the expensive parts of the index sit today
+
+```{r}
+#| label: chart-sectors
+#| fig-height: 6
+ggplot(sector_long, aes(x = value, y = sector)) +
+  geom_segment(aes(x = 0, xend = value, y = sector, yend = sector), color = "grey80", linewidth = 0.6) +
+  geom_point(aes(color = multiple, size = companies)) +
+  facet_wrap(~multiple, scales = "free_x") +
+  scale_color_manual(values = c("#2c6e91", "#c1544b", "#5f8f4e"), guide = "none") +
+  scale_size_continuous(range = c(2, 5.5), name = "Companies in sector") +
+  labs(
+    title = "No sector is the most expensive on every measure",
+    subtitle = paste0(
+      "Median multiple by GICS sector across the ", nrow(sp_clean),
+      " index members with complete data on all three. Sectors ordered by median P/E."
+    ),
+    x = "Median multiple",
+    y = NULL,
+    caption = "P/E screened to positive values below 100 to remove unprofitable firms and extreme outliers."
+  ) +
+  theme_project() +
+  theme(
+    panel.grid.major.x = element_line(color = "grey92"),
+    panel.grid.major.y = element_line(color = "grey95"),
+    panel.spacing = unit(1.1, "lines"),
+    legend.position = "bottom"
+  )
+```
+
+The cross section tells a different story from the time series. The index level is a single number, but that number averages sectors trading at very different prices, and the ranking changes depending on which denominator is used.
+
+Financials sit at the cheap end on earnings. That is the expected result for businesses whose profits are leveraged to the credit cycle; the market capitalizes cyclical, leverage driven earnings at a discount because it does not trust them to persist through a downturn.
+
+Information Technology is the most expensive sector on book value by a wide margin, and it is not close. This is less a valuation signal than an accounting one. The primary assets of a software or platform company are code, intellectual property, and customer relationships, most of which never appear on a balance sheet because they were expensed rather than capitalized. A low book value denominator mechanically produces a high price to book ratio.
+
+Real Estate is the sharpest illustration of the same point in the opposite direction. It posts the highest median P/E and by far the highest price to sales, yet only a middling price to book. Real estate trusts carry heavy depreciation charges against properties that frequently appreciate in market value, which suppresses reported earnings and inflates the P/E. Practitioners use funds from operations for exactly this reason.
+
+The takeaway is a discipline rather than a ranking. A multiple is a ratio, and the denominator has to make sense for the business model before the ratio means anything. Comparing a real estate trust to a software firm on price to sales is comparing two different accounting concepts and calling the difference a valuation gap.
+
+## Interpretation
+
+**Valuation informs expectations; it does not time markets.** Starting CAPE explains roughly `r round(100 * r2)` percent of the variation in ten year forward real returns. That is a strong relationship for a single variable in finance and a weak one for anyone hoping to use it as a trading trigger. December 1999 offered the highest CAPE in the data at 44.2 and delivered a real annualized loss of about 3.2 percent over the following decade. But September 2013 printed a CAPE of 23.4, well above the historical median, and still delivered about 9.4 percent real per year. Elevated valuations have been a poor sell signal and a decent forecast.
+
+**The current reading sits in the expensive tail.** At `r round(cape_now, 1)` as of `r format(date_now, "%B %Y")`, the market is roughly `r round(100 * (cape_now / cape_median - 1))` percent above its long run median CAPE and inside the most expensive quintile of the entire series. Historically, that starting point produced a median forward real return near `r percent(quintile_summary$median_return[5], accuracy = 0.1)` per year, with about `r percent(quintile_summary$share_negative[5], accuracy = 1)` of those decades ending in real losses.
+
+**What that changes in practice.** Three things follow, and none of them is "sell."
+
+1. *Planning assumptions should adjust before allocations do.* A retirement model that assumes seven percent real equity returns is using a number the cheapest quintile of history produced, not the most expensive. Lowering the assumed return raises the required savings rate; that is a decision an investor controls, unlike the market's return.
+2. *Sequence risk deserves more weight.* The widened left tail in the most expensive quintile is a statement about the distribution of outcomes, not the average. For anyone within a decade of drawing down a portfolio, the relevant risk is a poor first decade, and elevated valuations raise its probability.
+3. *Dispersion inside the index creates room to act.* The sector chart shows that the aggregate multiple hides a wide spread. An investor uncomfortable with the index level does not face a binary choice between owning it and holding cash; the composition of the equity allocation is a lever, though tilting toward lower multiple sectors carries its own risks and has periodically underperformed for long stretches.
+
+**The honest counterargument.** Today's index is more profitable, less capital intensive, and more concentrated in asset light businesses than the index of 1950. If a company can grow without reinvesting heavily, a higher multiple on its earnings is rational rather than exuberant. The composition effect is real, and it means part of the elevated CAPE is justified. How much is the open question, and this analysis cannot settle it.
+
+## Limitations
+
+- **Overlapping windows.** Consecutive monthly observations share 119 of 120 months of forward return, so the effective sample is closer to fourteen independent decades than to `r nrow(analysis)` observations. Standard errors from the fit would be badly understated, which is why this project reports the shape of the relationship and the distribution of outcomes rather than significance tests.
+- **Data vintage.** The inflation adjusted columns in the monthly file stop updating after `r format(date_now, "%B %Y")`, even though the nominal index level continues. The CAPE conclusions therefore end at that date rather than at the present month.
+- **A point in time cross section.** The constituent financials file is a single snapshot with survivorship built in; it contains today's index members, not the members who were dropped. Sector medians describe the index as currently constituted.
+- **Missing values.** Market capitalization and price to sales are absent for a meaningful share of constituents, and `r unmatched` symbols in the financials file did not match the constituents file. The screens are documented above so the reader can judge whether they biased the sector medians.
+- **CAPE is one lens.** Comparable analyses using dividend yield, price to book, or the equity risk premium relative to bond yields would tell overlapping but not identical stories.
+
+## Appendix: skills demonstrated
+
+| Requirement | Where it appears |
+|---|---|
+| Import from a remote source | Three CSVs read directly from URLs in the Import section |
+| `select()`, `filter()`, `mutate()`, `arrange()`, `slice()` | Basic wrangle, forward return calculation, and `slice_max()` / `slice_min()` in the extremes table |
+| `group_by()`, `summarise()`, `count()` | Quintile summary, decade counts, and sector medians |
+| Join, bind, pivot | `inner_join()` on ticker symbol, `bind_rows()` for the extremes table, `pivot_longer()` for the faceted sector chart |
+| Geometry | `geom_line()`, `geom_point()`, `geom_col()`, `geom_segment()`, `geom_smooth()`, `geom_errorbar()`, `geom_hline()`, `geom_text()` |
+| Aesthetics | Continuous color mapped to purchase year, fill mapped to median return, point size mapped to sector membership count |
+| Theme | Custom reusable `theme_project()` function plus per chart `theme()` overrides for grid lines, legend width, facet spacing, and axis text |
+| Interpretation | Interpretation and Limitations sections |
